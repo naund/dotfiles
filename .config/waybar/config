@@ -1,0 +1,103 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 24,
+  "spacing": 4,
+  "modules-left": [
+    "wlr/workspaces",
+    "wlr/taskbar"
+  ],
+  "modules-center": [
+    "hyprland/window"
+  ],
+  "modules-right": [
+    "tray",
+    "battery",
+    "network",
+    "wireplumber",
+    "custom/weather",
+    "clock"
+  ],
+  "wlr/taskbar": {
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": [
+      "foot",
+      "wezterm"
+    ]
+  },
+  "wlr/workspaces": {
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e-1",
+    "on-scroll-down": "hyprctl dispatch workspace e+1"
+  },
+  "hyprland/window": {
+    "max-length": 128
+  },
+  "clock": {
+    "format": "{:%H:%M}",
+    "format-alt": "{:%A, %B %d, %Y (%R)} 󰃰",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "on-click-right": "mode",
+    "calendar": {
+      "mode": "month",
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      },
+    },
+  },
+  "battery": {
+    "states": {
+      // "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}%{icon} ",
+    "format-charging": "{capacity}%󰂄",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    // "format-good": "", // An empty format will hide the module
+    // "format-full": "",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "network": {
+    // "interface": "wlp2*", // (Optional) To force the use of this interface
+    "format-wifi": "{essid}({signalStrength}%){icon} ",
+    "format-ethernet": "{ipaddr}/{cidr}󰈁 ",
+    "tooltip-format": "{ifname} via {gwaddr}󰈀 ",
+    "format-linked": "{ifname} (No IP)󰲜 ",
+    "format-disconnected": "Disconnected 󰈂",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ]
+  },
+  "tray": {
+    "spacing": 4
+  },
+  "wireplumber": {
+    "format": "{volume}%"
+  },
+  "custom/weather": {
+    "exec": "~/.config/waybar/wittr.sh",
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true,
+    "interval": 900
+  }
+}
+// vim: set ft=jsonc :
