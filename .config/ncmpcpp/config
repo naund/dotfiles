@@ -23,7 +23,7 @@
 #
 ##### connection settings #####
 #
-mpd_host = pi.lan
+mpd_host = pi.fritz.box
 #
 #mpd_port = 6600
 #
@@ -380,7 +380,7 @@ mpd_host = pi.lan
 #
 ## Available values: artist, album_artist, date, genre, composer, performer.
 ##
-#media_library_primary_tag = artist
+media_library_primary_tag = album_artist
 #
 #media_library_albums_split_by_date = yes
 #
@@ -471,7 +471,7 @@ mpd_host = pi.lan
 #
 #display_volume_level = yes
 #
-#display_bitrate = no
+display_bitrate = yes
 #
 #display_remaining_time = no
 #
@@ -483,7 +483,7 @@ mpd_host = pi.lan
 ## Note: if below is enabled, ncmpcpp will ignore leading "The" word while
 ## sorting items in browser, tags in media library, etc.
 ##
-#ignore_leading_the = no
+ignore_leading_the = yes
 #
 ##
 ## Note: if below is enabled, ncmpcpp will ignore diacritics while searching and
@@ -526,7 +526,7 @@ mpd_host = pi.lan
 #
 #search_engine_default_search_mode = 1
 #
-#external_editor = nano
+external_editor = nvim
 #
 ## Note: set to yes if external editor is a console application.
 ##
