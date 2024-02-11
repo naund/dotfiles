@@ -16,10 +16,18 @@ setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history 
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 # setopt HIST_BEEP                 # Beep when accessing nonexistent history.
+
+
+if [[ -x /bin/nvim ]]; then
+  export EDITOR=nvim
+  export VISUAL=nvim
+fi
+
 # dotfiles verwalten
-
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME'
+compdef _git dotfiles # add dotfiles to completion
 
+# ssh agent
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # Colored ls mit wbase
@@ -34,20 +42,10 @@ if [[ -x "/bin/bat" ]]; then
   export MANROFFOPT="-P -c"
 fi
 
-# fzf
-# ctrl-r: history search
-# alt-c: cd
-# ctrl-t: files
-if [[ -x "/bin/fd" ]]; then
-	FZF_CTRL_T_COMMAND='fd --type f --hidden --exclude .git --exclude .cache . $HOME'
-	FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git . $HOME'
-	#FZF_CTRL_R_OPTS
-fi
-
-if [[ -f "/usr/share/fzf/completion.zsh" ]]; then
-  export FZF_DEFAULT_OPTS="--reverse --info=inline --scheme=history --color"
-  source /usr/share/fzf/key-bindings.zsh
-  source /usr/share/fzf/completion.zsh
+# less, -R color
+if [[ -x /bin/lesspipe.sh ]]; then
+  lesspipe.sh|source /dev/stdin
+  export LESS=-FRX
 fi
 
 if [[ -f "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" ]]; then
@@ -80,6 +78,23 @@ function zvm_after_init() {
 if [[ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]]; then
   source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 fi
+
+# fzf
+# ctrl-r: history search
+# alt-c: cd
+# ctrl-t: files
+if [[ -x "/bin/fd" ]]; then
+	FZF_CTRL_T_COMMAND='fd --type f --hidden --exclude .git --exclude .cache . $HOME'
+	FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git . $HOME'
+	#FZF_CTRL_R_OPTS
+fi
+
+if [[ -f "/usr/share/fzf/completion.zsh" ]]; then
+  export FZF_DEFAULT_OPTS="--reverse --info=inline --scheme=history --color"
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+fi
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
