@@ -1,3 +1,6 @@
+# wget -O ~/.zshrc https://raw.githubusercontent.com/grml/grml-etc-core/master/etc/zsh/zshrc 
+# bat fzf lsd fd
+
 export PATH="${PATH}:${HOME}/.local/bin:${HOME}/.cargo/bin"
 
 # HISTFILE="$HOME/.zsh_history"
@@ -19,8 +22,7 @@ setopt HIST_VERIFY               # Don't execute immediately upon history expans
 
 
 if [[ -x /bin/nvim ]]; then
-  export EDITOR=nvim
-  export VISUAL=nvim
+  export VISUAL=/bin/nvim
 fi
 
 # dotfiles verwalten
@@ -31,21 +33,25 @@ compdef _git dotfiles # add dotfiles to completion
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # Colored ls mit wbase
-if [[ -x '/bin/lsd' && ! "$TERM" =~ linux ]]; then
-  alias ls='/bin/lsd'
+if [[ -x '/bin/eza' && ! "$TERM" =~ linux ]]; then
+  alias ls='/bin/eza --icons=auto'
   else
     alias ls=ls\ --color=auto
 fi
 
-if [[ -x "/bin/bat" ]]; then
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-  export MANROFFOPT="-P -c"
-fi
+#if [[ -x "/bin/bat" ]]; then
+#  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+#  export MANROFFOPT="-P -c"
+#fi
 
 # less, -R color
 if [[ -x /bin/lesspipe.sh ]]; then
   lesspipe.sh|source /dev/stdin
   export LESS=-FRX
+fi
+
+if [[ -x /bin/nvimpager ]]; then
+  export PAGER=/bin/nvimpager
 fi
 
 if [[ -f "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh" ]]; then
